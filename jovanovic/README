@@ -1,0 +1,20 @@
+The file genes.csv contains the gene data harvested and pre-processed by Marko Jovanovic ( https://pubmed.ncbi.nlm.nih.gov/25745177/ )
+This study was performed by taking two copies of dendritic cells, cultivating them using "food" containing medium isotopes of the atoms.
+Afterwards, each of the replicas were split in two, the first group being stimulated by lipopolysaccharide, and the second one being the control, and "food" was replaced with the versions of it containing heavier isotopes, thus making the weight of the molecules produced using that "food" heavier.
+That way the molecules before and after the stimulation are seperated, the ones before stimulation being medium-weighted, and the ones after stimulation being heavy-weighted, hence the effect of the stimulation can be tracked.
+Measurements were taken at 10 time-steps for both replicas, and both groups.
+
+The data comprises of 88 columns and 5389 rows.
+Each column represents the measurement.
+The first row is the labels for each column.
+The label, in the form of "Replicate A, B Channel, C, time D".
+A represents which replicate the sample belongs in, either replicate 1 or replicate 2.
+B represents which channel is measured - the medium versions of the proteins, or the heavy version of the proteins.
+C represents whether or not it's the affected sample, or the control (Mock).
+D represents the time at which the measurement was taken.
+
+The last four columns I have not yet deciphered.
+
+Each row represents a gene.
+
+An entry at row X and column Y represents the relative quantity of mRNA produced for gene X at sample Y. 

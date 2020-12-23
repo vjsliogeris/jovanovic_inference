@@ -1,0 +1,52 @@
+Preliminaries:
+Growth medium:
+Growth medium is cell food.
+
+SILAC:
+SILAC (Stable isotope labeling by amino acids in cell culture) is a method for tracking changes in protein abundance.
+It works by cultivating cells in medium-labelled growth medium, and then switching out the growth medium to heavy-labelled growth medium when stimulation starts.
+Medium labelled growth medium is cell growth medium that contains amino acids found in nature.
+Heavily labelled growth medium is the same amino acids as in medium labelled, except with some particular atoms in the amino acids being swapped out with heavier isotopes of those atoms.
+This means that both of the mediums are functionally the same, but the masses of the amino acids are different.
+When the growth medium gets switched out, the cells begins using the new, heavy growth medium to produce its proteins.
+The proteins produced using medium-labelled growth medium and heavily-labelled growth medium can be measured seperately using mass spectrometry.
+If the growth medium gets switched as stimulation is introduced, it can be concluded that proteins produced using heavy-versions of the growth medium were produced due to stimulation.
+Furthermore, the quantity of proteins produced using medium-labelled growth medium decreases over time due to the absence of medium-labelled growth medium, and this can be used to derive the half-life of the particular proteins.
+
+The file genes.csv contains the gene data harvested and pre-processed by Marko Jovanovic ( https://pubmed.ncbi.nlm.nih.gov/25745177/ )
+
+The study consisted of of collecting bone derived dendritic cells from mice, and cultivating them using Medium-Labelled SILAC Medium.
+After 9 days, all cells were pooled, and the Medium-Labelled SILAC medium was switched out for Heavy-labelled SILAC medium, and measurements for T=0h were taken from two independent replicates.
+Then the cells were split in to two groups, with one group being stimulated by LPS, a molecule that induces an immune responce, while the other group was left as the control group.
+Measurements were taken from two independent cells from each group at times 0.5h, 1h, 2h, 3h, 4h, 5h, 6h, 9h, 12h and 24h after stimulation.
+
+
+The data comprises of 88 columns and around 3000 rows.
+Each column represents the measurement.
+The first row is the labels for each column.
+The label, in the form of "Replicate A, B Channel, C, time D".
+A represents which replicate the sample belongs in, either replicate 1 or replicate 2.
+B represents which channel is measured - the medium versions of the proteins, or the heavy version of the proteins.
+C represents whether or not it's the affected sample, or the control (Mock).
+D represents the time at which the measurement was taken.
+
+Each row represents a gene.
+
+An entry at row X and column Y represents the relative quantity of mRNA produced for gene X at sample Y. 
+
+
+The original dataset measures around 5000 genes.
+We believe that a method to systematically decide which genes to consider would be helpful.
+Hence a metric has been derived to rank the genes by relevancy.
+Such a metric would allow the user to pick some number of genes from the top of the gene list without picking irrelevant genes.
+
+The metric considers the heavy channels for each gene.
+Plotting the heavy channel for a gene against time results in four lines - two for the affected samples, two for the mock samples.
+The two affected samples are considered the affected group, while the two control samples are considered the control group.
+A good metric would rank highly those genes, for which the samples within the group are homogenous, yet the samples between the groups are heterogenous.
+Therefore the metric is proportional to the area between the mean curves of each group.
+It is also inversely proportional to the variance of each group.
+Hence genes which behave consistently within their groups, yet differently depending on whether they're affected or not, score higher.
+
+Such a metric has been computed for each of the gene, and they are sorted vertically, with large-scoring genes at the top, and low scoring genes at the bottom.
+The intention is for the user to pick a desired number of genes from the top for the construction of a PBN.
